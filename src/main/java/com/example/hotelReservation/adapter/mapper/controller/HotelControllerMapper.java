@@ -8,7 +8,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface HotelControllerMapper {
-
     HotelControllerMapper map = Mappers.getMapper(HotelControllerMapper.class);
     Hotel hotelRequestDtoToHotel(HotelRequestDTO hotelRequestDTO);
     HotelRequestDTO hotelToHotelRequestDto(Hotel hotel);

@@ -3,7 +3,7 @@ package com.example.hotelReservation.infrastructure.persistence.entity;
 import com.example.hotelReservation.entities.RoomStatus;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
