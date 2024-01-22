@@ -1,5 +1,5 @@
 package com.example.hotelReservation.adapter.dto;
-import com.example.hotelReservation.entities.Address;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class HotelRequestDTO {
     private String name;
-    private Address address;
+    private AddressRequestDTO address;
     private List<RoomRequestDTO> rooms;
 }
 

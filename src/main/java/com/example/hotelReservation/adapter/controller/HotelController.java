@@ -6,9 +6,11 @@ import com.example.hotelReservation.adapter.dto.HotelResponseDTO;
 import com.example.hotelReservation.adapter.dto.RoomRequestDTO;
 import com.example.hotelReservation.adapter.dto.RoomResponseDTO;
 import com.example.hotelReservation.adapter.mapper.controller.HotelControllerMapper;
-import com.example.hotelReservation.application.usecase.CreateHotelUseCase;
-import com.example.hotelReservation.application.usecase.ListHotelsUseCase;
+import com.example.hotelReservation.adapter.mapper.controller.RoomControllerMapper;
+import com.example.hotelReservation.application.usecase.*;
 import com.example.hotelReservation.entities.Hotel;
+import com.example.hotelReservation.entities.Room;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +24,13 @@ import java.util.List;
 public class HotelController {
 
     private final CreateHotelUseCase createHotelUseCase;
+    private final CreateRoomUseCase createRoomUseCase;
+    private final UpdateHotelUseCase updateHotelUseCase;
+    private final UpdateRoomUseCase updateRoomUseCase;
     private final ListHotelsUseCase listHotelsUseCase;
+    private final ListHotelRoomsUseCase listHotelRoomsUseCase;
 
+    @ApiOperation(value = "Create a new hotel", response = HotelResponseDTO.class)
     @PostMapping
     public HotelResponseDTO createHotel(@RequestBody HotelRequestDTO request) {
         Hotel hotel = createHotelUseCase.execute(HotelControllerMapper.map.hotelRequestDtoToHotel(request));
@@ -32,18 +39,21 @@ public class HotelController {
 
     @PostMapping("/{hotelId}/room")
     public RoomResponseDTO createRoom(@RequestBody RoomRequestDTO request, @PathVariable String hotelId){
-        return null;
+        Room room = createRoomUseCase.execute(hotelId,RoomControllerMapper.map.roomRequestDtoToRoom(request));
+        return RoomControllerMapper.map.roomToRoomResponseDto(room);
     }
 
 
     @PutMapping("/{hotelId}")
     public HotelResponseDTO updateHotel(@RequestBody HotelRequestDTO request, @PathVariable String hotelId){
-        return null;
+        Hotel hotel = updateHotelUseCase.execute(hotelId, HotelControllerMapper.map.hotelRequestDtoToHotel(request));
+        return HotelControllerMapper.map.hotelToHotelResponseDto(hotel);
     }
 
     @PutMapping("/{hotelId}/room/{roomId}")
     public RoomResponseDTO updateHotelRoom(@RequestBody RoomRequestDTO request, @PathVariable String hotelId, @PathVariable String roomId){
-        return null;
+        Room room = updateRoomUseCase.execute(hotelId, roomId, RoomControllerMapper.map.roomRequestDtoToRoom(request));
+        return RoomControllerMapper.map.roomToRoomResponseDto(room);
     }
 
     @GetMapping("/list")
@@ -54,6 +64,7 @@ public class HotelController {
 
     @GetMapping("/{hotelId}/list")
     public List<RoomResponseDTO> listHotelRooms(@PathVariable String hotelId){
-        return null;
+        List<Room> rooms = listHotelRoomsUseCase.execute(hotelId);
+        return RoomControllerMapper.map.listRoomToListRoomResponseDto(rooms);
     }
 }

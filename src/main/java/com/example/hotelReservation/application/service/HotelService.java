@@ -19,4 +19,8 @@ public class HotelService {
     public List<Hotel> listHotels() {
         return hotelGatewayRepository.list();
     }
+
+    public Hotel updateHotel(String hotelId, Hotel hotel) {
+        return null;
+    }
 }
