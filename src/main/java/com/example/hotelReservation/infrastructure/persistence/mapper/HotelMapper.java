@@ -5,11 +5,12 @@ import com.example.hotelReservation.infrastructure.persistence.entity.HotelEntit
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface HotelMapper {
     HotelMapper map = Mappers.getMapper(HotelMapper.class);
-
     HotelEntity hotelToEntity(Hotel hotel);
-
     Hotel entityToHotel(HotelEntity hotelEntity);
+    List<Hotel> entitiesToHotels(List<HotelEntity> hotelEntities);
 }

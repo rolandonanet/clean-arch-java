@@ -8,21 +8,29 @@ import com.example.hotelReservation.infrastructure.persistence.mapper.HotelMappe
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class HotelRepositoryImpl implements HotelGatewayRepository {
 
     private final HotelJpaRepository hotelJpaRepository;
 
-//    @Override
-//    public HotelDTO findById(Long hotelId) {
-//        return null;
-//    }
-
     @Override
     public Hotel save(Hotel hotel) {
         HotelEntity hotelToSave = HotelMapper.map.hotelToEntity(hotel);
         HotelEntity savedHotel = hotelJpaRepository.save(hotelToSave);
         return HotelMapper.map.entityToHotel(savedHotel);
+    }
+
+    @Override
+    public Hotel update(Hotel hotel) {
+        return null;
+    }
+
+    @Override
+    public List<Hotel> list() {
+        List<HotelEntity> hotels = hotelJpaRepository.findAll();
+        return HotelMapper.map.entitiesToHotels(hotels);
     }
 }

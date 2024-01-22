@@ -25,8 +25,8 @@ public class HotelEntity {
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-//    @OneToMany
-//    @JoinColumn(name = "hotel_id")
-//    private List<RoomEntity> rooms;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "hotel_id")
+    private List<RoomEntity> rooms;
 
 }

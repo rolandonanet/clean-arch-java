@@ -6,6 +6,8 @@ import com.example.hotelReservation.entities.Hotel;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface HotelControllerMapper {
     HotelControllerMapper map = Mappers.getMapper(HotelControllerMapper.class);
@@ -13,5 +15,6 @@ public interface HotelControllerMapper {
     HotelRequestDTO hotelToHotelRequestDto(Hotel hotel);
     Hotel hotelResponsetDtoToHotel(HotelResponseDTO hotelResponseDTO);
     HotelResponseDTO hotelToHotelResponseDto(Hotel hotel);
+    List<HotelResponseDTO> listHotelToListHotelResponseDto(List<Hotel> hotels);
 
 }

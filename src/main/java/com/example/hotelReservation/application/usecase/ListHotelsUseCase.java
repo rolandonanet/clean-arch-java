@@ -5,12 +5,14 @@ import com.example.hotelReservation.entities.Hotel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Component
-public class CreateHotelUseCase {
-
+public class ListHotelsUseCase {
     private final HotelService hotelService;
-    public Hotel execute(Hotel hotel){
-       return hotelService.createHotel(hotel);
+
+    public List<Hotel> execute(){
+        return hotelService.listHotels();
     }
 }

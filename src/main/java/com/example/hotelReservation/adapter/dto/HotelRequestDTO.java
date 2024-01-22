@@ -15,6 +15,6 @@ import java.util.List;
 public class HotelRequestDTO {
     private String name;
     private Address address;
-//    private List<RoomRequestDTO> rooms;
+    private List<RoomRequestDTO> rooms;
 }
 

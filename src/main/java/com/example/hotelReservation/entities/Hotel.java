@@ -15,5 +15,7 @@ public class Hotel {
     private Long id;
     private String name;
     private Address address;
-//    private List<Room> rooms;
+    private List<Room> rooms;
+    private Integer roomsAvailable;
+    private Integer roomsBooked;
 }
