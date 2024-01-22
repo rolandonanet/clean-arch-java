@@ -1,7 +1,7 @@
 package com.example.hotelReservation.infrastructure.persistence.repository;
 
-import com.example.hotelReservation.application.dto.HotelDTO;
-import com.example.hotelReservation.application.gateway.HotelGateway;
+import com.example.hotelReservation.adapter.gateway.repository.HotelGatewayRepository;
+import com.example.hotelReservation.entities.Hotel;
 import com.example.hotelReservation.infrastructure.persistence.entity.HotelEntity;
 import com.example.hotelReservation.infrastructure.persistence.jpa.HotelJpaRepository;
 import com.example.hotelReservation.infrastructure.persistence.mapper.HotelMapper;
@@ -10,19 +10,19 @@ import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
 @Repository
-public class HotelRepositoryImpl implements HotelGateway {
+public class HotelRepositoryImpl implements HotelGatewayRepository {
 
     private final HotelJpaRepository hotelJpaRepository;
 
-    @Override
-    public HotelDTO findById(Long hotelId) {
-        return null;
-    }
+//    @Override
+//    public HotelDTO findById(Long hotelId) {
+//        return null;
+//    }
 
     @Override
-    public HotelDTO save(HotelDTO hotel) {
-        HotelEntity hotelToSave = HotelMapper.map.dtoToEntity(hotel);
+    public Hotel save(Hotel hotel) {
+        HotelEntity hotelToSave = HotelMapper.map.hotelToEntity(hotel);
         HotelEntity savedHotel = hotelJpaRepository.save(hotelToSave);
-        return HotelMapper.map.entityToDTO(savedHotel);
+        return HotelMapper.map.entityToHotel(savedHotel);
     }
 }

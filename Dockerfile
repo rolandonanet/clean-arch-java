@@ -1,8 +1,9 @@
-# Use a imagem Java 17 do AdoptOpenJDK
-FROM adoptopenjdk:17-jre-hotspot
+FROM openjdk:17-oracle
+
+WORKDIR /app
 
 # Copie o JAR da sua aplicação para o contêiner
 COPY ./desafio-tutor.jar /app/desafio-tutor.jar
 
 # Comando para executar a aplicação
-CMD ["java", "-jar", "/app/seu_app.jar"]
+CMD ["java", "-jar", "/app/desafio-tutor.jar"]

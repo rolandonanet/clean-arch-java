@@ -1,9 +1,10 @@
 package com.example.hotelReservation.infrastructure.persistence.entity;
 
-import com.example.hotelReservation.domain.model.RoomStatus;
+import com.example.hotelReservation.entities.RoomStatus;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "room")
@@ -14,9 +15,9 @@ public class RoomEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int number;
+    private Integer number;
 
-    private double price;
+    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     private RoomStatus status;

@@ -1,7 +1,5 @@
 package com.example.hotelReservation.infrastructure.persistence.entity;
 
-import com.example.hotelReservation.domain.model.Hotel;
-import com.example.hotelReservation.domain.model.RoomStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,15 +19,14 @@ public class HotelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private Hotel hotel;
+    private String name;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "address_id")
     private AddressEntity address;
 
     @OneToMany
+    @JoinColumn(name = "hotel_id")
     private List<RoomEntity> rooms;
 
-    private RoomStatus status;
 }

@@ -1,5 +1,4 @@
-version: '3'
-
+version: '3.3'
 services:
   app:
     container_name: hotel-reservation
@@ -7,27 +6,25 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - rabbitmq
       - mysql
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hotel_reservation
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_RABBITMQ_HOST: rabbitmq
-      SPRING_RABBITMQ_PORT: 5672
-      SPRING_RABBITMQ_USERNAME: admin
-      SPRING_RABBITMQ_PASSWORD: 1234
-
-  rabbitmq:
-    image: rabbitmq:management
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: 1234
-
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
   mysql:
     image: mysql:5.7
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: hotel_reservation
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: 'hotel_reservation'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
+volumes:
+  my-db:

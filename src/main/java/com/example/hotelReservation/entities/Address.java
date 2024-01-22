@@ -1,25 +1,17 @@
-package com.example.hotelReservation.infrastructure.persistence.entity;
+package com.example.hotelReservation.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "address")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class AddressEntity {
-
+public class Address {
     private Long id;
     private String street;
     private String zipcode;
     private String country;
-
-
 }

@@ -1,6 +1,6 @@
 package com.example.hotelReservation.infrastructure.persistence.mapper;
 
-import com.example.hotelReservation.application.dto.HotelDTO;
+import com.example.hotelReservation.entities.Hotel;
 import com.example.hotelReservation.infrastructure.persistence.entity.HotelEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 public interface HotelMapper {
     HotelMapper map = Mappers.getMapper(HotelMapper.class);
 
-    HotelEntity dtoToEntity(HotelDTO hotelDTO);
+    HotelEntity hotelToEntity(Hotel hotel);
 
-    HotelDTO entityToDTO(HotelEntity hotelEntity);
+    Hotel entityToHotel(HotelEntity hotelEntity);
 }
