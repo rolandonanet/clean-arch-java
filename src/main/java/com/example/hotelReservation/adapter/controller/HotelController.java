@@ -12,6 +12,7 @@ import com.example.hotelReservation.entities.Hotel;
 import com.example.hotelReservation.entities.Room;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,30 +31,29 @@ public class HotelController {
     private final ListHotelsUseCase listHotelsUseCase;
     private final ListHotelRoomsUseCase listHotelRoomsUseCase;
 
-    @ApiOperation(value = "Create a new hotel", response = HotelResponseDTO.class)
     @PostMapping
-    public HotelResponseDTO createHotel(@RequestBody HotelRequestDTO request) {
-        Hotel hotel = createHotelUseCase.execute(HotelControllerMapper.map.hotelRequestDtoToHotel(request));
-        return HotelControllerMapper.map.hotelToHotelResponseDto(hotel);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createHotel(@RequestBody HotelRequestDTO request) {
+        createHotelUseCase.execute(HotelControllerMapper.map.hotelRequestDtoToHotel(request));
     }
 
     @PostMapping("/{hotelId}/room")
-    public RoomResponseDTO createRoom(@RequestBody RoomRequestDTO request, @PathVariable String hotelId){
-        Room room = createRoomUseCase.execute(hotelId,RoomControllerMapper.map.roomRequestDtoToRoom(request));
-        return RoomControllerMapper.map.roomToRoomResponseDto(room);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createRoom(@RequestBody RoomRequestDTO request, @PathVariable Long hotelId){
+        createRoomUseCase.execute(hotelId,RoomControllerMapper.map.roomRequestDtoToRoom(request));
     }
 
 
     @PutMapping("/{hotelId}")
-    public HotelResponseDTO updateHotel(@RequestBody HotelRequestDTO request, @PathVariable String hotelId){
-        Hotel hotel = updateHotelUseCase.execute(hotelId, HotelControllerMapper.map.hotelRequestDtoToHotel(request));
-        return HotelControllerMapper.map.hotelToHotelResponseDto(hotel);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateHotel(@RequestBody HotelRequestDTO request, @PathVariable Long hotelId){
+        updateHotelUseCase.execute(hotelId, HotelControllerMapper.map.hotelRequestDtoToHotel(request));
     }
 
     @PutMapping("/{hotelId}/room/{roomId}")
-    public RoomResponseDTO updateHotelRoom(@RequestBody RoomRequestDTO request, @PathVariable String hotelId, @PathVariable String roomId){
-        Room room = updateRoomUseCase.execute(hotelId, roomId, RoomControllerMapper.map.roomRequestDtoToRoom(request));
-        return RoomControllerMapper.map.roomToRoomResponseDto(room);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateHotelRoom(@RequestBody RoomRequestDTO request, @PathVariable String hotelId, @PathVariable String roomId){
+        updateRoomUseCase.execute(hotelId, roomId, RoomControllerMapper.map.roomRequestDtoToRoom(request));
     }
 
     @GetMapping("/list")

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateHotelUseCase {
     private final HotelService hotelService;
-    public Hotel execute(String hotelId, Hotel hotel) {
-        return  hotelService.updateHotel(hotelId, hotel);
+    public void execute(Long hotelId, Hotel hotel) {
+        hotelService.updateHotel(hotelId, hotel);
     }
 }

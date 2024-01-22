@@ -17,20 +17,35 @@ public class HotelRepositoryImpl implements HotelGatewayRepository {
     private final HotelJpaRepository hotelJpaRepository;
 
     @Override
+    public Boolean exists(Long hotelId) {
+       return hotelJpaRepository.existsById(hotelId);
+    }
+
+    @Override
     public Hotel save(Hotel hotel) {
         HotelEntity hotelToSave = HotelMapper.map.hotelToEntity(hotel);
         HotelEntity savedHotel = hotelJpaRepository.save(hotelToSave);
         return HotelMapper.map.entityToHotel(savedHotel);
     }
 
-    @Override
-    public Hotel update(Hotel hotel) {
-        return null;
-    }
+//    @Override
+//    public Hotel update(Long hotelId, Hotel hotel) {
+//        hotelJpaRepository.existsById(hotelId);
+//        HotelEntity hotelToSave = HotelMapper.map.hotelToEntity(hotel);
+//        hotelToSave.setId(hotelId);
+//        hotelJpaRepository.save(hotelToSave);
+//        return null;
+//    }
 
     @Override
     public List<Hotel> list() {
         List<HotelEntity> hotels = hotelJpaRepository.findAll();
         return HotelMapper.map.entitiesToHotels(hotels);
+    }
+
+    @Override
+    public Hotel findById(Long hoteId) {
+        HotelEntity hotelEntity = hotelJpaRepository.findById(hoteId).orElse(null);
+        return HotelMapper.map.entityToHotel(hotelEntity);
     }
 }

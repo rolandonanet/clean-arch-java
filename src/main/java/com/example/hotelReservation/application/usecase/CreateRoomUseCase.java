@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class CreateRoomUseCase {
 
     private final RoomService roomService;
-    public Room execute(String hotelId, Room room) {
-        return roomService.createRoom(hotelId, room);
+    public void execute(Long hotelId, Room room) {
+        roomService.createRoom(hotelId, room);
     }
 }

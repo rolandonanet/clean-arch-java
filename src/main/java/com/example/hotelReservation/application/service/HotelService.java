@@ -20,7 +20,12 @@ public class HotelService {
         return hotelGatewayRepository.list();
     }
 
-    public Hotel updateHotel(String hotelId, Hotel hotel) {
-        return null;
+    public void updateHotel(Long hotelId, Hotel hotel) {
+
+        if (!hotelGatewayRepository.exists(hotelId)){}
+
+        hotel.setId(hotelId);
+        hotelGatewayRepository.save(hotel);
+
     }
 }
