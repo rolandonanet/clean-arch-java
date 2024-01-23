@@ -4,8 +4,6 @@ import com.example.hotelReservation.adapter.gateway.repository.HotelGatewayRepos
 import com.example.hotelReservation.adapter.gateway.repository.RoomGatewayRepository;
 import com.example.hotelReservation.entities.Room;
 import com.example.hotelReservation.entities.Hotel;
-import com.example.hotelReservation.infrastructure.persistence.mapper.HotelMapper;
-import com.example.hotelReservation.infrastructure.persistence.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +13,29 @@ import java.util.List;
 @Service
 public class RoomService {
     private final HotelGatewayRepository hotelGatewayRepository;
-    private final RoomGatewayRepository roomGatewayRepository;
+    private final HotelService hotelService;
     public void createRoom(Long hotelId, Room room) {
-        Hotel hotel = hotelGatewayRepository.findById(hotelId);
+        Hotel hotel = hotelService.getHotel(hotelId);
         hotel.getRooms().add(room);
         hotelGatewayRepository.save(hotel);
     }
 
-    public List<Room> listRooms(String hotelId) {
-        return null;
+    public List<Room> listRooms(Long hotelId) {
+        Hotel hotel = hotelService.getHotel(hotelId);
+        return hotel.getRooms();
     }
 
-    public void updateRoom(String hotelId, String roomId, Room room) {
+    public void updateRoom(Long hotelId, Long roomId, Room room) {
+        Hotel hotel = hotelService.getHotel(hotelId);
+        Room existingRoom = hotel.getRooms().stream()
+                .filter(expectedRoom -> room.getId().equals(roomId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Room not found with Id: " + roomId));
+
+        existingRoom.setNumber(room.getNumber());
+        existingRoom.setPrice(room.getPrice());
+        existingRoom.setStatus(room.getStatus());
+
+        hotelGatewayRepository.save(hotel);
     }
 }

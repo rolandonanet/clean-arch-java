@@ -21,11 +21,10 @@ public class HotelEntity {
 
     private String name;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "address_id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private AddressEntity address;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "hotel_id")
     private List<RoomEntity> rooms;
 

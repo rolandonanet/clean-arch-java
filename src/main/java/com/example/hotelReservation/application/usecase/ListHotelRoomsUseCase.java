@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class ListHotelRoomsUseCase {
     private final RoomService roomService;
-    public List<Room> execute(String hotelId) {
+    public List<Room> execute(Long hotelId) {
         return roomService.listRooms(hotelId);
     }
 }

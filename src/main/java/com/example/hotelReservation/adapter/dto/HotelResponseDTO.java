@@ -16,5 +16,6 @@ public class HotelResponseDTO {
     private String name;
     private AddressResponseDTO address;
     private List<RoomResponseDTO> rooms;
-
+    private Integer roomsAvailable;
+    private Integer roomsBooked;
 }

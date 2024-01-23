@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class CreateHotelUseCase {
+public class GetHotelUseCase {
 
     private final HotelService hotelService;
-    public void execute(Hotel hotel){
-       hotelService.createHotel(hotel);
+    public Hotel execute(Long hotelId) {
+        return hotelService.getHotel(hotelId);
     }
 }

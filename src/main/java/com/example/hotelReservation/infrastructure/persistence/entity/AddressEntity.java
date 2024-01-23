@@ -21,6 +21,8 @@ public class AddressEntity {
     private String street;
     private String zipcode;
     private String country;
+    @OneToOne(mappedBy = "address")
+    private HotelEntity hotel;
 
 
 }

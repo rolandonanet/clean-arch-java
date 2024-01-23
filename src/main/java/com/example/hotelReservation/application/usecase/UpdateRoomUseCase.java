@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class UpdateRoomUseCase {
 
     private final RoomService roomService;
-    public void execute(String hotelId, String roomId, Room room) {
+    public void execute(Long hotelId, Long roomId, Room room) {
         roomService.updateRoom(hotelId, roomId, room);
     }
 }

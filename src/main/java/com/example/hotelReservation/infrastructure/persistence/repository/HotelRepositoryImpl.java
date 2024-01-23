@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
@@ -17,25 +18,20 @@ public class HotelRepositoryImpl implements HotelGatewayRepository {
     private final HotelJpaRepository hotelJpaRepository;
 
     @Override
+    public Optional<Hotel> findByName(String name) {
+        HotelEntity hotelEntity = hotelJpaRepository.findFirstByName(name);
+        return Optional.ofNullable(HotelMapper.map.entityToHotel(hotelEntity));
+    }
+    @Override
     public Boolean exists(Long hotelId) {
        return hotelJpaRepository.existsById(hotelId);
     }
 
     @Override
-    public Hotel save(Hotel hotel) {
+    public void save(Hotel hotel) {
         HotelEntity hotelToSave = HotelMapper.map.hotelToEntity(hotel);
-        HotelEntity savedHotel = hotelJpaRepository.save(hotelToSave);
-        return HotelMapper.map.entityToHotel(savedHotel);
+        hotelJpaRepository.save(hotelToSave);
     }
-
-//    @Override
-//    public Hotel update(Long hotelId, Hotel hotel) {
-//        hotelJpaRepository.existsById(hotelId);
-//        HotelEntity hotelToSave = HotelMapper.map.hotelToEntity(hotel);
-//        hotelToSave.setId(hotelId);
-//        hotelJpaRepository.save(hotelToSave);
-//        return null;
-//    }
 
     @Override
     public List<Hotel> list() {
@@ -44,8 +40,8 @@ public class HotelRepositoryImpl implements HotelGatewayRepository {
     }
 
     @Override
-    public Hotel findById(Long hoteId) {
-        HotelEntity hotelEntity = hotelJpaRepository.findById(hoteId).orElse(null);
+    public Hotel findById(Long hotelId) {
+        HotelEntity hotelEntity = hotelJpaRepository.findById(hotelId).orElse(null);
         return HotelMapper.map.entityToHotel(hotelEntity);
     }
 }
